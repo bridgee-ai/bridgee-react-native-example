@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "Bridgee RN Example",
+    "slug": "bridgee-rn-example",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "bundleIdentifier": "ai.bridgee.reactnativeexample",
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "ai.bridgee.reactnativeexample",
+      "googleServicesFile": "./google-services.json"
+    },
+    "plugins": [
+      "expo-dev-client",
+      "@react-native-firebase/app",
+      "@bridgee-ai/react-native-sdk",
+      [
+        "expo-build-properties",
+        {
+          "ios": { "useFrameworks": "static" }
+        }
+      ]
+    ]
+  }
+}
