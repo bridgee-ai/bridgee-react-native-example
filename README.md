@@ -7,7 +7,7 @@ Um aplicativo React Native completo que demonstra como integrar e usar o **Bridg
 ## 🚀 Principais Funcionalidades
 
 - **Integração Completa do Bridgee SDK** - Mostra configuração e inicialização adequada do SDK via `@bridgee-ai/react-native-sdk`
-- **Integração com Firebase Analytics** - Demonstra o uso do Firebase como provedor de analytics (o SDK injeta os UTMs como user properties)
+- **Integração com Firebase Analytics** - Demonstra o uso do Firebase como provedor de analytics (o SDK cuida da comunicação para associar a sessão ao canal de aquisição)
 - **Coleta de Dados do Usuário** - Interface de formulário para coletar informações do usuário (nome, email, telefone)
 - **Recuperação de Dados UTM** - Exibe parâmetros UTM (source, medium, campaign) de matches bem-sucedidos
 - **Tratamento de Erros** - Manipulação adequada de Promises para cenários de sucesso e erro
@@ -235,12 +235,14 @@ Parâmetros de `BridgeeSDK.configure({ ... })`:
 - **dryRun**: Defina como `true` para testes (não faz chamada real), `false` para produção
 
 ### MatchBundle
-Builder para passar dados do usuário ao SDK (API fluente):
+Builder para passar dados do usuário ao SDK (API fluente). **Todos os campos são opcionais** — o SDK resolve atribuição mesmo com um bundle vazio, mas mais dados = maior confiança no match:
 - `.withName(string)` — Nome do usuário
 - `.withEmail(string)` — Email do usuário
 - `.withPhone(string)` — Telefone do usuário
 - `.withGclid(string)` — Google Click ID
 - `.withCustomParam(key, value)` — Parâmetros customizados
+
+> 🔗 **Importante:** os mesmos parâmetros enviados aqui devem ser propagados nas URLs de captura (os **blinks**, ex.: `https://ios.seuapp.com.br/?email=...&phone=...&utm_source=...`). O servidor Bridgee compara os sinais dos dois lados (clique vs. instalação) — quanto maior a interseção, mais eficiente e preciso o match.
 
 ### Resposta `UTMData`
 `BridgeeSDK.firstOpen(bundle)` retorna uma `Promise<UTMData>`:
