@@ -1,0 +1,24 @@
+name: Bridgee installation plan
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node scripts/plan-bridgee.mjs
+        env:
+          TAGBOOK_API_URL: ${{ vars.TAGBOOK_API_URL }}
+          TAGBOOK_PLAN_TOKEN: ${{ secrets.TAGBOOK_PLAN_TOKEN }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bridgee-installation-plan
+          path: |
+            bridgee-plan.json
+            bridgee-installation.patch
+          retention-days: 7

@@ -295,3 +295,9 @@ Se você já olhou os outros exemplos, os equivalentes são:
 2. Crie uma branch para sua feature
 3. Faça suas alterações
 4. Envie um pull request
+
+## Fluxo de implementação revisável
+
+O exemplo começa sem consentimento, usa dryRun e preserva a atribuição nativa Google quando selecionada. Configure o tenant de teste antes de consultar; o provider do exemplo impede entregas após revogação e filtra first_open/purchase de SDKs legados. Uma consulta não é uma instalação faturável.
+
+O workflow manual `Bridgee installation plan` executa `scripts/plan-bridgee.mjs`: lê somente dependências e caminhos existentes e chama a API Tagbook usando `TAGBOOK_API_URL` (variable) e `TAGBOOK_PLAN_TOKEN` (secret, mínimo 32 caracteres). O mesmo motor atende a entrada web do Dashboard. Gera JSON e patch como artifacts por sete dias, sem aplicar arquivos, criar PR ou instalar SDK. Configure o serviço antes de executar; não configure secrets em repositórios de terceiros. A dependência SDK publicada permanece no pin existente.
